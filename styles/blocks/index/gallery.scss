@@ -1,0 +1,260 @@
+.gallery {
+  position: relative;
+  width: 100%;
+  //margin: 0 auto;
+  //min-height: 1241px;
+  background-image: url("../images/gallery/background_gallery.jpg");
+  background-size: cover;
+  background-position-x: center;
+  box-sizing: border-box;
+  padding: 0 7.3%;
+
+
+  @include tablet-max {
+    background-image: url("../images/gallery/background_gallery_tablet.jpg");
+    background-size: cover;
+  }
+
+  @include mobile-max {
+    background-image: url("../images/gallery/background_gallery_mobile.jpg");
+    background-size: cover;
+  }
+
+  //&::before {
+  //  content: " ";
+  //  position: absolute;
+  //  top: -1px;
+  //  left: 0;
+  //  background-image: url("../images/svg/zig-zag.svg");
+  //  background-repeat: repeat-x;
+  //  background-position-x: 31px;
+  //  width: 100%;
+  //  height: 10px;
+  //  transform: rotate(180deg);
+  //}
+}
+
+.gallery__header {
+  padding-top: 33px;
+  margin-bottom: 22px;
+}
+
+.gallery__title {
+  background-color: rgba(0, 0, 0, .8);
+  border-radius: 25px;
+  max-width: 385px;
+  margin: 0 auto;
+
+  & span {
+    display: block;
+    font-size: 60px;
+    line-height: 72px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    text-align: center;
+
+    @include mobile-max {
+      font-size: 40px;
+    }
+  }
+}
+
+.gallery_wrapper {
+  align-items: center;
+}
+
+.gallery_container {
+  position: relative;
+  max-width: 1641px;
+  margin: 0 auto;
+  padding-bottom: 7%;
+
+  @include desktop-min {
+    padding-bottom: 12%;
+  }
+
+  @include tablet-max {
+    padding-bottom: 14%;
+  }
+
+  @include tablet {
+    padding-bottom: 21%;
+  }
+
+  @include mobile-max {
+    padding-bottom: 110px;
+  }
+
+  & svg {
+    display: block;
+    margin: 0 auto;
+    //padding-top: 420px;
+    @include effect-opacity;
+  }
+
+  //&::after {
+  //  content: " ";
+  //  position: absolute;
+  //  top: 10px;
+  //  right: 10px;
+  //  background-image: url("../images/svg/sound_on.svg");
+  //  width: 67px;
+  //  height: 67px;
+  //
+  //  @include effect-opacity;
+  //}
+}
+
+//.gallery_slide {
+//  margin-bottom: 50px;
+//}
+
+.gallery_container--full {
+  padding-bottom: 140px;
+
+  @include mobile-max {
+    padding-bottom: 110px;
+  }
+}
+
+.gallery_slide > * {
+  display: block;
+  margin: 0 auto;
+}
+
+.gallery_slide video {
+  //min-height: 720px;
+  //object-fit: cover;
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery_slide--full video {
+  max-height: 80vh;
+
+  @include tablet-max {
+    max-height: 75vh;
+  }
+
+  @include tablet {
+    max-height: 59vh;
+  }
+
+  @include mobile-max {
+    max-height: 36vh;
+  }
+
+  @include mobile {
+    max-height: 33vh;
+  }
+}
+
+.gallery-control::after {
+  display: none;
+}
+
+.gallery-control--prev {
+  position: absolute;
+  content: " ";
+  width: 32px;
+  height: 32px;
+  z-index: 9999999999;
+  //top: 8%;
+  //fill: rgba(244, 114, 32, 1);
+
+  @include tablet-max {
+    top: 270px;
+    display: block;
+  }
+
+  @include tablet {
+    top: 180px;
+  }
+
+  @include mobile-max {
+    left: 5%;
+    top: 145px;
+  }
+}
+
+.gallery-control--next {
+  position: absolute;
+  content: " ";
+  width: 32px;
+  height: 32px;
+  z-index: 9999999999;
+  //top: 8%;
+
+  @include tablet-max {
+    top: 270px;
+    display: block;
+  }
+
+  @include tablet {
+    top: 180px;
+  }
+
+  @include mobile-max {
+    right: 5%;
+    top: 145px;
+  }
+}
+
+.swiper--bullet {
+  width: 130px;
+  height: 100px;
+  border-radius: unset;
+
+  @include mobile-max {
+    width: 90px;
+    height: auto;
+  }
+}
+
+.gallery--full-screen {
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .7);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.show-full-gallery--js {
+  display: flex;
+}
+
+.gallery_slide--full > * {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  //transform: translateY(-50%);
+  //top: 50%;
+}
+
+.gallery_slide--full img {
+  max-height: 80vh;
+}
+
+.swiper-pagination-bullet {
+  opacity: .5;
+}
+
+.gallery__full-close {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  border: none;
+  background-color: transparent;
+  z-index: 99999999993994765275468471294898585739577;
+
+  @include mobile-max {
+    top: 30px;
+    right: 0;
+  }
+}

@@ -1,0 +1,31 @@
+.zig-zag {
+  //padding: 32px 0;
+  //margin: 32px 0;
+  //margin-bottom: 0;
+  //background: #1ba1e2;
+}
+
+.zig-zag::before{
+  background:
+          linear-gradient(-45deg, #fff 16px, #fff 16px, #fff 16px,  transparent 0),
+          linear-gradient(45deg, #fff 16px, transparent 0);
+  background-position: left top;
+  background-repeat: repeat-x;
+  background-size: 22px 32px;
+  content: " ";
+  display: block;
+
+  height: 32px;
+  width: 100%;
+
+  position: relative;
+  bottom: 31px;
+  left:0;
+}
+
+.zig-zag-top{
+  padding: 32px 0;
+  margin: 32px 0;
+  margin-bottom: 0;
+  background: #1ba1e2;
+}
