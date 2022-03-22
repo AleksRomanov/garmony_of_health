@@ -12,8 +12,8 @@ export function MainLayout({children, title = 'Garmony of Health'}) {
             </Head>
             <nav>
                 <div>
-                    <Link href={'/'}><a>List of Books</a></Link>
-                    <Link href={'/bookTitle'}><a>Author Single Page</a></Link>
+                    {/*<Link href={'/'}><a>List of Books</a></Link>*/}
+                    {/*<Link href={'/bookTitle'}><a>Author Single Page</a></Link>*/}
                     <Link href={'/login'}><a>Login Page</a></Link>
                 </div>
             </nav>
