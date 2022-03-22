@@ -1,0 +1,64 @@
+{
+  "bookList": [
+    {
+      "bookId": 1,
+      "title": "Только вперед!",
+      "author": "А.А. Романов",
+      "rating": "5",
+      "bookItemPage": [
+        {
+          "author": "А.А. Романов",
+          "title": "Только вперед!",
+          "year": "2020",
+          "annotation": "!!!!!!!!",
+          "genre": "Фантастика",
+          "rating": "5"
+        }
+      ]
+    },
+    {
+      "bookId": 2,
+      "title": "GO!!",
+      "author": "Misha",
+      "rating": "2",
+      "bookItemPage": [
+        {
+          "author": "Misha",
+          "title": "GO!!",
+          "year": "2020",
+          "annotation": "!!!!!!!!",
+          "genre": "Боевик",
+          "rating": "2"
+        }
+      ]
+    },
+    {
+      "bookId": 3,
+      "title": "Peace",
+      "author": "Roman",
+      "rating": "3",
+      "bookItemPage": [
+        {
+          "author": "Roman",
+          "title": "Peace",
+          "year": "2020",
+          "annotation": "!!!!!!!!",
+          "genre": "Ужасы",
+          "rating": "3"
+        }
+      ]
+    }
+  ],
+
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "bookId": 1
+    }
+  ],
+
+  "profile": {
+    "name": "typicode"
+  }
+}
