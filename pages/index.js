@@ -8,10 +8,26 @@ import styled from "styled-components";
 // import React, {useEffect, useState} from "react";
 
 const StyledCard = styled(Card)`
-       align-items: center;
-  .ant-card-body   {
+  .ant-card {
+  }
+
+  .ant-card-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  span {
+    width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .ant-card-head-title {
+  }
+
+  .ant-card-head {
   }
 `;
 
@@ -33,29 +49,37 @@ export default function Index({data}) {
     function renderBook(book) {
         return (
             <Col key={nanoid()} span={8}>
-
-                {/*<Card title={book.title} bordered={false}>*/}
-                {/*    <div>*/}
                 <StyledCard>
+                    <h2 title={book.title} bordered={false}>{book.title}</h2>
+                    <span author={book.author}>{book.author}</span>
+                    {/*<img*/}
+                    {/*    alt="example"*/}
+                    {/*    src={book.img}*/}
+                    {/*/>*/}
                     <Image height={200}
                            src={book.img}
                     />
                 </StyledCard>
-                {/*</div>*/}
-                {/*</Card>*/}
             </Col>
         );
     }
 
     return (
         <MainLayout title={'Page Index'}>
-            <h1 style={{display: "flex", justifyContent: "center"}}>List of Books</h1>
+            <h1 style={{display: "flex", justifyContent: "center"}}>The World Bestsellers</h1>
+            {/*<div style={{display: "flex", justifyContent: "center"}}>*/}
             <div>
-                <Row gutter={16}>
-                    {/*<ul>*/}
+                {/*<ul style={{padding: "0"}}>*/}
+                <Row gutter={8}>
                     {data.bookList.map((item) => renderBook(item))}
-                    {/*</ul>*/}
                 </Row>
+                {/*</ul>*/}
+
+                {/*<Row gutter={8}>*/}
+                {/*    /!*<ul>*!/*/}
+                {/*    {data.bookList.map((item) => renderBook(item))}*/}
+                {/*    /!*</ul>*!/*/}
+                {/*</Row>*/}
             </div>
         </MainLayout>
     )
@@ -71,4 +95,3 @@ export const getServerSideProps = reduxWrapper.getServerSideProps(
         return {props: {data: res[0].data}};
     }
 );
-

@@ -50,6 +50,23 @@
           "rating": "3"
         }
       ]
+    },
+    {
+      "bookId": 4,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "OOOOO!!!",
+      "author": "Vasya",
+      "rating": "1",
+      "bookItemPage": [
+        {
+          "author": "Vasya",
+          "title": "OOOOO!!!",
+          "year": "2012",
+          "annotation": "!!!!!!!!",
+          "genre": "Драма",
+          "rating": "1"
+        }
+      ]
     }
   ],
   "comments": [
