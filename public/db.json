@@ -11,7 +11,7 @@
           "author": "А.А. Романов",
           "title": "Только вперед!",
           "year": "2020",
-          "annotation": "!!!!!!!!",
+          "annotation": "!!!!!!!!!!",
           "genre": "Фантастика",
           "rating": "5"
         }
@@ -20,15 +20,15 @@
     {
       "bookId": 2,
       "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
-      "title": "GO!!",
-      "author": "Misha",
+      "title": "Ни шагу назад!",
+      "author": "Михаил Круг",
       "rating": "2",
       "bookItemPage": [
         {
-          "author": "Misha",
-          "title": "GO!!",
+          "author": "Михаил Круг",
+          "title": "Ни шагу назад!",
           "year": "2020",
-          "annotation": "!!!!!!!!",
+          "annotation": "!!!",
           "genre": "Боевик",
           "rating": "2"
         }
@@ -37,17 +37,51 @@
     {
       "bookId": 3,
       "img": "https://cdn1.ozone.ru/s3/multimedia-g/6012509584.jpg",
-      "title": "Peace",
-      "author": "Roman",
+      "title": "МИР",
+      "author": "Рома Абрамович",
       "rating": "3",
       "bookItemPage": [
         {
-          "author": "Roman",
-          "title": "Peace",
+          "author": "Рома Абрамович",
+          "title": "МИР",
           "year": "2020",
           "annotation": "!!!!!!!!",
-          "genre": "Ужасы",
+          "genre": "Комедия",
           "rating": "3"
+        }
+      ]
+    },
+    {
+      "bookId": 4,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "OOOOO!!!",
+      "author": "Vasya",
+      "rating": "1",
+      "bookItemPage": [
+        {
+          "author": "Vasya",
+          "title": "OOOOO!!!",
+          "year": "2012",
+          "annotation": "!!!!!!!!",
+          "genre": "Драма",
+          "rating": "1"
+        }
+      ]
+    },
+    {
+      "bookId": 5,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "МИР ВО ВСЕМ МИРЕ",
+      "author": "А.А. Державин",
+      "rating": "5",
+      "bookItemPage": [
+        {
+          "author": "А.А. Державин",
+          "title": "МИР ВО ВСЕМ МИРЕ",
+          "year": "2052",
+          "annotation": "!!!!!!",
+          "genre": "Ужасы",
+          "rating": "5"
         }
       ]
     }
