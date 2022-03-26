@@ -6,23 +6,42 @@ import {nanoid} from "@reduxjs/toolkit";
 import Link from "next/link";
 import {reduxWrapper} from "../../store/store";
 import {getData, getRunningOperationPromises} from "../../store/api-reducer";
+import {useEffect, useState} from "react";
 
-function renderItemBook(book) {
-    return (
-        <Col key={nanoid()} span={8}>
 
-        </Col>
-    );
-}
+export default function SectionId({data}) {
+    // console.log(router.query.id)
+    // console.log(data)
+    const router = useRouter();
+    const [bookData, setBookData] = useState(undefined);
 
-export default function SectionId() {
-    // const router = useRouter()
+    useEffect(() => {
+        setBookData(data.bookList.find(book => book.bookId.toString() === router.query.id))
+    }, [])
+
+    console.log(bookData)
+
     return (
         <MainLayout>
-            <h1>SectionId {router.query.id}</h1>
             <div>
-                <h1>gdfxdbdfbdf</h1>
+                <Row gutter={8}>
+                    <Card>
+                        <Text mark>{bookData && bookData.title}</Text>
+
+                    </Card>
+                </Row>
             </div>
         </MainLayout>
     )
 }
+
+export const getServerSideProps = reduxWrapper.getServerSideProps(
+    (store) => async (context) => {
+        store.dispatch(getData.initiate());
+        let res = await Promise.all(getRunningOperationPromises()).then(
+            result => result,
+            error => console.log("Rejected")
+        );
+        return {props: {data: res[0].data}};
+    }
+);

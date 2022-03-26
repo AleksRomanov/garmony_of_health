@@ -10,7 +10,6 @@ import Text from "antd/lib/typography/Text";
 import Search from "antd/lib/input/Search";
 import {useEffect, useState} from "react";
 import Link from "next/link";
-import bookTitle from "./bookTitle";
 
 const StyledCard = styled(Card)`
   .ant-card-body {
@@ -95,7 +94,7 @@ export default function Index({data}) {
     function renderBook(book) {
         return (
             <Col key={nanoid()} span={8}>
-                <Link href={`/book/${bookTitle.bookId}`}>
+                <Link href={`/book/${book.bookId}`}>
                     <a><StyledCard>
                         <p title={book.title}>{book.title}</p>
                         <span author={book.author}>{book.author}</span>
