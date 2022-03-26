@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
+import {reduxWrapper} from "../store/store";
+import {getData, getRunningOperationPromises} from "../store/api-reducer";
 
 export function MainLayout({children, title = 'Garmony of Health'}) {
 
@@ -11,11 +13,6 @@ export function MainLayout({children, title = 'Garmony of Health'}) {
                 <meta name="description" content="Factory from Krasnoyarsk"/>
                 <meta charSet="utf-8"/>
             </Head>
-            <nav>
-                <div>
-                    <Link href={'/login'}><a>Login Page</a></Link>
-                </div>
-            </nav>
             <main>
                 {children}
             </main>

@@ -5,12 +5,12 @@ import {Card, Col, Image, Input, Row} from "antd";
 import {nanoid} from "@reduxjs/toolkit";
 import styled from "styled-components";
 import {fromEvent} from "rxjs";
-import {map, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators'
+import {map, debounceTime, distinctUntilChanged, switchMap, tap, filter} from 'rxjs/operators'
 import Text from "antd/lib/typography/Text";
 import Search from "antd/lib/input/Search";
 import {useEffect, useState} from "react";
-import {log} from "util";
-
+import Link from "next/link";
+import bookTitle from "./bookTitle";
 
 const StyledCard = styled(Card)`
   .ant-card-body {
@@ -29,9 +29,6 @@ const StyledCard = styled(Card)`
     justify-content: center;
     margin-bottom: 10px;
   }
-
-  .ant-card-head {
-  }
 `;
 
 const search = () => {
@@ -40,53 +37,54 @@ const search = () => {
 
 
 export default function Index({data}) {
-    const [searchResult, setSearchResult] = useState([]);
+    const [searchResult, setSearchResult] = useState(null);
+    const [searchInput, setSearchInput] = useState(null);
     const [searchStream, setSearchStream] = useState(false);
 
     const parseData = (value) => {
-        const matchTitle = (book) => {
-            return !!book.title.toLowerCase().match(RegExp(`${value.toLowerCase()}`))
-        }
-        const matchAuthor = (book) => {
-            return !!book.author.toLowerCase().match(RegExp(`${value.toLowerCase()}`))
-        }
+        const matchTitle = (book) => !!book.title.toLowerCase().match(RegExp(`${value.toLowerCase()}`));
+        const matchAuthor = (book) => !!book.author.toLowerCase().match(RegExp(`${value.toLowerCase()}`));
         let titleList = data.bookList.filter(book => matchTitle(book) === true);
         let authorList = data.bookList.filter(book => matchAuthor(book) === true);
         return titleList.concat(authorList);
     }
 
-    let search = undefined;
+    useEffect(() => {
+        setSearchResult(document.getElementById('result'))
+        setSearchInput(document.getElementById('search'))
+    }, [])
 
     useEffect(() => {
-        if (!search) {
-            setSearchResult(document.getElementById('result'))
-            search = document.getElementById('search');
-
-
+        if (searchResult && searchInput) {
             if (!searchStream) {
-                let stream$ = fromEvent(search, 'input')
+                let stream$ = fromEvent(searchInput, 'input')
                     .pipe(
                         map(event => event.target.value),
                         debounceTime(1000),
                         distinctUntilChanged(),
-                        switchMap(value => parseData(value)),
                         tap(() => searchResult.innerHTML = ''),
+                        filter(v => v !== ''),
+                        switchMap(value => parseData(value))
                     );
                 setSearchStream(stream$);
 
             }
         }
-    }, [])
+    }, [searchInput, searchStream, searchResult])
 
     useEffect(() => {
         if (searchStream) {
-            searchStream.subscribe(book => {
+            !searchStream.subscribe(book => {
                 const html = `
-                <div class="card">
+                 <div class="card">
                   <div class="card-image">
                     <img src="${book.img}" />
+                  </div>
+                  <div class="card-description">
+                    <span class="card-author">${book.author}</span>
                     <span class="card-title">${book.title}</span>
                   </div>
+                  
                 </div>
             `;
                 searchResult.insertAdjacentHTML('beforeend', html)
@@ -97,20 +95,28 @@ export default function Index({data}) {
     function renderBook(book) {
         return (
             <Col key={nanoid()} span={8}>
-                <StyledCard>
-                    <p title={book.title}>{book.title}</p>
-                    <span author={book.author}>{book.author}</span>
-                    <Image height={200}
-                           src={book.img}
-                    />
-                </StyledCard>
+                <Link href={`/book/${bookTitle.bookId}`}>
+                    <a><StyledCard>
+                        <p title={book.title}>{book.title}</p>
+                        <span author={book.author}>{book.author}</span>
+                        <Image height={200}
+                               src={book.img}
+                               preview={false}
+                        />
+                    </StyledCard>
+                    </a>
+                </Link>
             </Col>
         );
     }
 
     return (
         <MainLayout class="container" title={'Page Index'}>
-            {/*<h1 style={{display: "flex", justifyContent: "center", opacity: "0", }}>The World Bestsellers</h1>*/}
+            <nav>
+                <div>
+                    <Link href={'/login'}><a>Login Page</a></Link>
+                </div>
+            </nav>
             <Text style={{display: "flex", justifyContent: "center", fontSize: "4.2em", marginBottom: "30px"}} mark>The World Bestsellers</Text>
             {/*<Search id="search" placeholder="Поиск по автору или названию книги" allowClear onSearch={onSearch} style={{width: "100%"}}/>*/}
             <Search id="search" placeholder="Поиск по автору или названию книги" allowClear style={{width: "100%"}}/>

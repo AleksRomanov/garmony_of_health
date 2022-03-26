@@ -34,7 +34,6 @@ nav {
     right: 0;
     background: blue;
     display: flex;
-    /*justify-content: center;*/
     z-index: 999999999999999999999;
     align-items: center;
 }
@@ -43,7 +42,6 @@ nav a {
     color: #fff;
     text-decoration: none;
     margin: 0 30px 0 30px;
-    /*/ / margin: 0 auto;*/
 }
 
 nav div {
@@ -67,7 +65,35 @@ a {
 
 img {
     z-index: 43634632;
-    max-width: 100%;
+    width: auto;
     height: auto;
 }
 
+.ant-input-search .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+  border: none;
+}
+
+.card {
+    display: flex;
+    width: 30%;
+
+    &:hover {
+        opacity: .7
+    }
+}
+
+.card-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card .card-image img {
+    width: auto;
+    height: 100px;
+    margin-right: 30px;
+}
+
+.card .card-image .card-title {
+    color: darkgrey;
+}
