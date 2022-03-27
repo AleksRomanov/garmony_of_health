@@ -8,39 +8,48 @@ import Text from 'antd/lib/typography/Text';
 import {EyeInvisibleOutlined} from '@ant-design/icons';
 import {EyeTwoTone} from '@ant-design/icons';
 import Link from 'next/link';
+import {useAppSelector} from '../../services/useAppSelector';
+import {AuthorizationStatus} from '../../constants';
+import {reduxWrapper} from '../../store/store';
+import {getData, getRunningOperationPromises} from '../../store/api-reducer';
+import {nanoid} from 'nanoid';
 
-export default function Login() {
+export default function Login({initialData}) {
     // const dispatch = useAppDispatch();
     // const [submitLogin] = useLoginMutation();
     // const authStatus = useAppSelector(state => state.appReducer.authorizationStatus)
     const [loginInput, setLoginInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
 
-    const loginData = {
-        email: loginInput,
-        password: passwordInput,
-    };
+    // const loginData = {
+    //     email: loginInput,
+    //     password: passwordInput,
+    // };
 
-    // useEffect(() => {
-    //     if (authStatus === AuthorizationStatus.Auth) {
-    //         dispatch(redirectToRoute(AppRoute.Main));
-    //     }
-    // }, [authStatus, dispatch]);
+    useEffect(() => {
+        console.log(initialData)
+        if (initialData.authStatus) {
+            Router.push('/').then(r => console.log(r));
 
-    const linkClickHandler = () => {
-        Router.push('/')
-    }
+            // dispatch(redirectToRoute(AppRoute.Main));
+        }
+    }, [initialData]);
 
-    const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        saveEmail(loginData.email);
-        // submitLogin(loginData);
-        // dispatch(setAuthStatus(AuthorizationStatus.Auth));
-        // dispatch(redirectToRoute(AppRoute.Main));
-    };
+
+    // const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    //     evt.preventDefault();
+    //     saveEmail(loginData.email);
+    //     submitLogin(loginData);
+    //     // dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    //     // dispatch(redirectToRoute(AppRoute.Main));
+    // };
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        localStorage.key_auth = nanoid();
+        console.log(values.userMail)
+        localStorage.userMail = values.userMail;
+        Router.push('/').then(r => console.log(r));
+
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -55,35 +64,34 @@ export default function Login() {
                 </div>
             </nav>
             <Row>
-                <Col span={24}>
-                    <Text style={{display: "flex", justifyContent: "center", fontSize: "4.2em", marginBottom: "30px"}} mark>Login Page</Text>
-                    {/*<Input.Password placeholder="input password" />*/}
-                    {/*<Input.Password*/}
-                    {/*    placeholder="input password"*/}
-                    {/*    iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}*/}
-                    {/*/>*/}
+                <Col span={12}>
+                    <div>
+                        {initialData.authStatus ? <span>{localStorage.userMail}</span> : <Link href={'/login'}><a>Login Page</a></Link>}
+                    </div>
+                    {/*<Text style={{display: 'flex', justifyContent: 'center', fontSize: '4.2em', marginBottom: '30px'}} mark>Login Page</Text>*/}
                     <Form
                         name="basic"
                         labelCol={{
-                            span: 2,
+                            span: 4,
                         }}
                         wrapperCol={{
-                            span: 22,
+                            span: 16,
                         }}
                         initialValues={{
                             remember: true,
                         }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+                        autoComplete="on"
                     >
                         <Form.Item
-                            label="Username"
-                            name="username"
+                            label="E-mail"
+                            name="userMail"
                             rules={[
                                 {
                                     required: true,
-                                    message: 'Please input your username!',
+                                    message: 'Please input your E-mail!',
+                                    type: 'email'
                                 },
                             ]}
                         >
@@ -104,32 +112,23 @@ export default function Login() {
                         </Form.Item>
 
                         <Form.Item
-                            name="remember"
-                            valuePropName="checked"
                             wrapperCol={{
                                 offset: 1,
                                 span: 16,
                             }}
                         >
-                            <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
-
-                        <Form.Item
-                            wrapperCol={{
-                                offset: 1,
-                                span: 16,
-                            }}
-                        >
-                            <Button type="primary" htmlType="submit">
-                                Submit
-                            </Button>
+                            <button className="login__submit form__submit button" type="submit">Sign in</button>
                         </Form.Item>
                     </Form>
                 </Col>
             </Row>
 
-            <button onClick={linkClickHandler}>To Books List</button>
         </MainLayout>
     )
-
 }
+
+export const getServerSideProps = reduxWrapper.getServerSideProps(
+    (store) => async (context) => {
+        return {props: {initialData: {authStatus: false}}};
+    }
+);

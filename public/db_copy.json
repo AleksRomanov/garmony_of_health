@@ -1,0 +1,140 @@
+{
+  "bookList": [
+    {
+      "bookId": 1,
+      "img": "https://images-na.ssl-images-amazon.com/images/I/91BKaAzsNSL.jpg",
+      "title": "Только вперед!",
+      "author": "А.А. Романов",
+      "rating": "5",
+      "bookItemPage": [
+        {
+          "author": "А.А. Романов",
+          "title": "Только вперед!",
+          "year": "2020",
+          "annotation": "!!!!!!!!!!",
+          "genre": "Фантастика",
+          "rating": "5"
+        }
+      ]
+    },
+
+    {
+      "bookId": 1,
+      "img": "https://images-na.ssl-images-amazon.com/images/I/91BKaAzsNSL.jpg",
+      "title": "Только вперед!",
+      "author": "А.А. Романов",
+      "rating": "5",
+      "year": "2020",
+      "annotation": "!!!!!!!!!!",
+      "genre": "Фантастика",
+
+      "comments": [
+        {
+          "user": "madrid123@yahoo.com",
+          "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing.",
+        }
+      ]
+    },
+    {
+      "bookId": 2,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "Ни шагу назад!",
+      "author": "Михаил Круг",
+      "rating": "2",
+      "bookItemPage": [
+        {
+          "author": "Михаил Круг",
+          "title": "Ни шагу назад!",
+          "year": "2020",
+          "annotation": "!!!",
+          "genre": "Боевик",
+          "rating": "2"
+        }
+      ]
+    },
+    {
+      "bookId": 3,
+      "img": "https://cdn1.ozone.ru/s3/multimedia-g/6012509584.jpg",
+      "title": "МИР",
+      "author": "Рома Абрамович",
+      "rating": "3",
+      "bookItemPage": [
+        {
+          "author": "Рома Абрамович",
+          "title": "МИР",
+          "year": "2020",
+          "annotation": "!!!!!!!!",
+          "genre": "Комедия",
+          "rating": "3"
+        }
+      ]
+    },
+    {
+      "bookId": 4,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "OOOOO!!!",
+      "author": "Миронян",
+      "rating": "1",
+      "bookItemPage": [
+        {
+          "author": "Миронян",
+          "title": "OOOOO!!!",
+          "year": "2012",
+          "annotation": "!!!!!!!!",
+          "genre": "Драма",
+          "rating": "1"
+        }
+      ]
+    },
+    {
+      "bookId": 5,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "МИР ВО ВСЕМ МИРЕ",
+      "author": "А.А. Державин",
+      "rating": "5",
+      "bookItemPage": [
+        {
+          "author": "А.А. Державин",
+          "title": "МИР ВО ВСЕМ МИРЕ",
+          "year": "2052",
+          "annotation": "!!!!!!",
+          "genre": "Ужасы",
+          "rating": "5"
+        }
+      ]
+    },
+    {
+      "bookId": 6,
+      "img": "https://cdn.vash.market/catalog/i/img/cv6.litres.ru/pub/c/cover/7999567.jpg",
+      "title": "МИРОТВОРЧЕСКИЙ ПРИЯТЕЛЬ",
+      "author": "А.А. Ромов",
+      "rating": "3",
+      "bookItemPage": [
+        {
+          "author": "А.А. Ромов",
+          "title": "МИРОТВОРЧЕСКИЙ ПРИЯТЕЛЬ",
+          "year": "2072",
+          "annotation": "МИРОТВОРЧЕСКИЙ ПРИЯТЕЛЬМИРОТВОРЧЕСКИЙ ПРИЯТЕЛЬМИРОТВОРЧЕСКИЙ ПРИЯТЕЛЬМИРОТВОРЧЕСКИЙ ПРИЯТЕЛЬ",
+          "genre": "Драма",
+          "rating": "3"
+        }
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "bookId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
+
+
+
+
+
+
