@@ -26,7 +26,7 @@ export default function SectionId({data, initialData}) {
 
     useEffect(() => {
         setBookData(data.find(book => book.bookId.toString() === router.query.id))
-    }, [])
+    }, [data, router.query.id])
 
     console.log(bookData)
 
@@ -52,11 +52,12 @@ export default function SectionId({data, initialData}) {
                 <Row style={{display: "flex", justifyContent: "center"}}>
                     <Card>
                         <Col key={nanoid()} span={16}>
-                            <Text mark>Шедевральное произведение "{bookData && bookData.title}"</Text>
+                            <Text mark>Шедевральное произведение &quot{bookData && bookData.title}&ldquo</Text>
 
                             {/*<p title={bookData && bookData.title}>{bookData && bookData.title}</p>*/}
                             <p author={bookData && bookData.author}>{bookData && bookData.author}</p>
                             <Image
+                                alt={bookData && bookData.title}
                                 height={350}
                                 width={215}
                                 src={bookData && bookData.img}

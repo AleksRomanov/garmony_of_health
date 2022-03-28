@@ -7,16 +7,17 @@ import {useEffect, useState} from "react";
 import AppProvider from "../components/AppProvider";
 
 function MyApp({Component, pageProps}) {
-    const checkAuth = () => {
-        console.log(pageProps)
-        if (!!localStorage.key_auth) {
-            pageProps.initialData.authStatus = true;
-        }
-    }
+
 
 
     useEffect(() => {
-        console.log(pageProps)
+        // console.log(pageProps)
+        const checkAuth = () => {
+            // console.log(pageProps)
+            if (!!localStorage.key_auth) {
+                pageProps.initialData.authStatus = true;
+            }
+        }
 
         pageProps.initialData && checkAuth();
     }, [pageProps]);

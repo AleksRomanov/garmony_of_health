@@ -1,19 +1,16 @@
 import {MainLayout} from "../components/MainLayout";
 import {reduxWrapper} from "../store/store";
 import {getData, getRunningOperationPromises} from "../store/api-reducer";
-import {Avatar, Card, Col, Image, Input, List, Pagination, Row, Select} from "antd";
+import {Card, Image, List, Select} from "antd";
 const { Option } = Select;
-import {nanoid} from "@reduxjs/toolkit";
 import styled from "styled-components";
 import {fromEvent} from "rxjs";
 import {map, debounceTime, distinctUntilChanged, switchMap, tap, filter} from 'rxjs/operators'
 import Text from "antd/lib/typography/Text";
 import Search from "antd/lib/input/Search";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import {log} from "util";
 
-const {  MessageOutlined, LikeOutlined, StarOutlined  } = "antd/es/image/PreviewGroup";
 
 const StyledCard = styled(Card)`
   .ant-card {
@@ -49,39 +46,82 @@ export default function Index({data, initialData}) {
     const [searchResult, setSearchResult] = useState(null);
     const [searchInput, setSearchInput] = useState(null);
     const [searchStream, setSearchStream] = useState(false);
-    const [sortType, setSortType] = useState(null);
+    const [sortType, setSortType] = useState('byAuthor');
 
     const [books, setBooks] = useState(data);
 
     const [authStatus, setAuthStatus] = useState(initialData.authStatus);
 
     useEffect(() => {
-        setAuthStatus(initialData.authStatus)
-    }, [initialData.authStatus])
+
+        !!books && sortItems(sortType);
+        setBooks(books)
+    }, [])
+
 
 
     useEffect(() => {
+        setAuthStatus(initialData.authStatus)
+    }, [initialData.authStatus]);
+
+
+    const sortItems = (sortType) => {
         // console.log(sortType)
-        sortItems();
-    }, [sortType, books])
+        if (sortType === 'byAuthor') {
+            console.log('byAuthor')
 
+            const res = books.sort(function(a, b){
+                let nameA=a.author.toLowerCase(), nameB=b.author.toLowerCase()
+                if (nameA < nameB) {
+                    return -1
+                }
+            });
+            setBooks(res)
+        }
 
-    const parseData = (value) => {
-        const matchTitle = (book) => !!book.title.toLowerCase().match(RegExp(`${value.toLowerCase()}`));
-        const matchAuthor = (book) => !!book.author.toLowerCase().match(RegExp(`${value.toLowerCase()}`));
-        let titleList = data.filter(book => matchTitle(book) === true);
-        let authorList = data.filter(book => matchAuthor(book) === true);
-        return titleList.concat(authorList);
+        if (sortType === 'byTitle') {
+            const res = books.sort(function(a, b){
+                let nameA=a.title.toLowerCase(), nameB=b.title.toLowerCase()
+                if (nameA < nameB) {
+                    return -1
+                }
+            });
+            setBooks(res)
+        }
+
+        if (sortType === 'byRate') {
+            const res = books.sort(function(a, b){
+                let nameA= Number(a.rating), nameB=Number(b.rating)
+                if (nameA < nameB) {
+                    return -1
+                }
+            });
+            setBooks(res)
+        }
     }
+
+    function onSort(e) {
+        setSortType(e);
+        sortItems(e);
+    }
+
 
     useEffect(() => {
         setSearchResult(document.getElementById('result'))
         setSearchInput(document.getElementById('search'))
-        sortItems()
+
     }, [])
 
 
     useEffect(() => {
+        const parseData = (value) => {
+            const matchTitle = (book) => !!book.title.toLowerCase().match(RegExp(`${value.toLowerCase()}`));
+            const matchAuthor = (book) => !!book.author.toLowerCase().match(RegExp(`${value.toLowerCase()}`));
+            let titleList = data.filter(book => matchTitle(book) === true);
+            let authorList = data.filter(book => matchAuthor(book) === true);
+            return titleList.concat(authorList);
+        }
+
         if (searchResult && searchInput) {
             if (!searchStream) {
                 let stream$ = fromEvent(searchInput, 'input')
@@ -96,7 +136,7 @@ export default function Index({data, initialData}) {
                 setSearchStream(stream$);
             }
         }
-    }, [searchInput, searchStream, searchResult])
+    }, [searchInput, searchStream, searchResult, data])
 
     useEffect(() => {
         if (searchStream) {
@@ -116,7 +156,7 @@ export default function Index({data, initialData}) {
                 searchResult.insertAdjacentHTML('beforeend', html)
             })
         }
-    }, [searchStream])
+    }, [searchStream, searchResult])
 
 
     function logout() {
@@ -124,51 +164,9 @@ export default function Index({data, initialData}) {
         setAuthStatus(false);
     }
 
-    function sortItems() {
-        // console.log('в сортировке')
-        // console.log(sortType)
-        if (sortType === 'byAuthor') {
-            // let res = books.sort((prev, next) => {
-            //     if ( prev.author < next.author ) return -1;
-            //     if ( prev.author < next.author ) return 1;
-            // })
-            console.log(books);
-            books.sort(function(a, b){
-                let nameA=a.author.toLowerCase(), nameB=b.author.toLowerCase()
-                if (nameA < nameB) //сортируем строки по возрастанию
-                    return -1
-                if (nameA > nameB)
-                    return 1
-                return 0 // Никакой сортировки
-            })
-            setBooks(books)
-        }
 
-        if (sortType === 'byName') {
-
-            books.sort(function(a, b){
-                let nameA=a.title.toLowerCase(), nameB=b.title.toLowerCase()
-                if (nameA < nameB) //сортируем строки по возрастанию
-                    return -1
-                if (nameA > nameB)
-                    return 1
-                return 0 // Никакой сортировки
-            })
-            setBooks(books)
-        }
-    }
-
-    function onSort(e) {
-        // console.log('event')
-        setSortType(e);
-        // sortItems();
-        // console.log('sortType')
-        //
-        // console.log(sortType)
-
-    }
-
-
+    console.log("render");
+    console.log(books);
     return (
         <MainLayout class="container" title={'Page Index'}>
             <nav>
@@ -187,13 +185,13 @@ export default function Index({data, initialData}) {
 
             <Select defaultValue="byAuthor" style={{ width: 120 }} onChange={onSort}>
                 <Option value="byAuthor">Автор</Option>
-                <Option value="byName">Название</Option>
+                <Option value="byTitle">Название</Option>
                 <Option value="byRate">Рейтинг</Option>
             </Select>
 
 
             <List
-                grid={{gutter: 16, column: 4}}
+                grid={{gutter: 16, column: 3}}
                 itemLayout="horizontal"
                 size="large"
                 pagination={{
@@ -202,37 +200,18 @@ export default function Index({data, initialData}) {
                     },
                     pageSize: 6,
                 }}
-                dataSource={books}
+                dataSource={books ? books : []}
                 renderItem={item => (
                     <List.Item
                         key={item.title}
-                        // actions={[
-                        //     // <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                        //     // <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                        //     // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-                        //     <span>{item.author}</span>,
-                        //
-                        // ]}
-
-                        // extra={
-                        //
-                        //     <Image height={200}
-                        //            src={item.img}
-                        //            preview={false}
-                        //     />
-                        // }
                     >
-                        {/*<List.Item.Meta*/}
-                        {/*    avatar={<Avatar src={item.avatar} />}*/}
-                        {/*    title={<a href={item.href}>{item.title}</a>}*/}
-                        {/*    description={item.description}*/}
-                        {/*/>*/}
                         <Link href={`/book/${item.bookId}`}>
                             <a>
                                 <StyledCard>
                                 <p title={item.title}>{item.title}</p>
                                 <span author={item.author}>{item.author}</span>
                                 <Image height={200}
+                                       alt={item.title}
                                        src={item.img}
                                        preview={false}
                                 />
@@ -243,11 +222,6 @@ export default function Index({data, initialData}) {
                 )}
             />
 
-
-            {/*<div>*/}
-
-            {/*</div>*/}
-            {/*<Pagination  defaultCurrent={1} total={50} itemRender={(1, 'page', <p>123</>) => React.ReactNode}/>*/}
         </MainLayout>
     )
 }
@@ -260,10 +234,6 @@ export const getServerSideProps = reduxWrapper.getServerSideProps(
             result => result,
             error => console.log("Rejected")
         );
-
-        console.log("data")
-        console.log(res)
-
         return {props: {data: res[0].data, initialData: {authStatus: false}}};
     }
 );
